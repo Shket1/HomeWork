@@ -11,6 +11,10 @@ public class TimeIntervalRunner{
 
         TimeInterval sumIntervals = timeInterval.sum(timeInterval2);
         sumIntervals.print();
-        System.out.println(sumIntervals.totalSeconds());
+
+        TimeInterval interval = new TimeInterval(29934);
+        interval.print();
     }
+
+
 }
