@@ -11,13 +11,15 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class FileCalculator {
+
+    public static final String OUTPUT = "C:\\Users\\ma4e9\\IdeaProjects\\Calculator\\src\\calculator\\result";
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите полный путь файла с примерами типа \"10 + 20\", каждый пример на дово строке.");
         String example = scanner.nextLine();
         scanner.close();
         String res = "";
-        String output = "C:\\Users\\ma4e9\\IdeaProjects\\Calculator\\src\\calculator\\result";
 
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(example))) {
             while (bufferedReader.ready()) {
@@ -25,10 +27,10 @@ public class FileCalculator {
                 try {
                     res = res + " = " + calculate(res);
                     System.out.println(calculate(res));
-                    writeInFile(res, output);
+                    writeInFile(res, OUTPUT);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
-                    writeInFile(res + " = " + e.getMessage(), output);
+                    writeInFile(res + " = " + e.getMessage(), OUTPUT);
                 }
             }
         } catch (Exception e) {
