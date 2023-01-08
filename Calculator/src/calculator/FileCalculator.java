@@ -1,7 +1,13 @@
 package calculator;
+/*
+Перед началом использования нужно поменять в переменной output путь, куда будут записываться ответы примеров
+Нужно указать полный путь на файл с примерами после запузка программы
+ */
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class FileCalculator {
@@ -11,14 +17,18 @@ public class FileCalculator {
         String example = scanner.nextLine();
         scanner.close();
         String res = "";
+        String output = "C:\\Users\\ma4e9\\IdeaProjects\\Calculator\\src\\calculator\\result";
 
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(example))) {
             while (bufferedReader.ready()) {
                 res = bufferedReader.readLine();
                 try {
+                    res = res + " = " + calculate(res);
                     System.out.println(calculate(res));
+                    writeInFile(res, output);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
+                    writeInFile(res + " = " + e.getMessage(), output);
                 }
             }
         } catch (Exception e) {
@@ -54,5 +64,13 @@ public class FileCalculator {
                 return one / two;
         }
         throw new Exception("Operation Error!");
+    }
+
+    public static void writeInFile(String res, String fileName) {
+        try (FileWriter fileWriter = new FileWriter(fileName, true)){
+            fileWriter.write(res + "\n");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
